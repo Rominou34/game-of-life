@@ -4,12 +4,12 @@ var interv;
 
 window.onload = function() {
   var game = document.getElementById("game");
-  world = randomWorld(30,60, 0.15);
+  world = randomWorld(60,90, 0.15);
   draw(world);
 }
 
 function start() {
-  interv = setInterval(iterate, 20);
+  interv = setInterval(iterate, 80);
 }
 
 function draw(w) {
