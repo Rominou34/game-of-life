@@ -1,29 +1,41 @@
 var world = [];
 var buffer = [];
 var interv;
+var game;
 
 window.onload = function() {
-  var game = document.getElementById("game");
+  game = document.getElementById("game");
   world = randomWorld(60,90, 0.15);
-  draw(world);
+  initMap();
+  //draw(world);
 }
 
 function start() {
   interv = setInterval(iterate, 80);
 }
 
+function initMap() {
+  for(var i=0; i < world.length; i++) {
+    var ligne = document.createElement("div");
+    for(var j=0; j < world[i].length; j++) {
+      var cell = document.createElement("div");
+      ligne.appendChild(cell);
+    }
+    game.appendChild(ligne);
+  }
+}
+
 function draw(w) {
-  var text = "";
-  for(var x in w) {
-    for(var y in w[x]) {
-      if(w[x][y] == 1) {
-        text += w[x][y];
+  var line = document.querySelectorAll("#game > div");
+  for(var i=0; i < line.length; i++) {
+    var blocks = line[i].querySelectorAll("div");
+    for(var j=0; j < blocks.length; j++) {
+      if(w[i][j]==1) {
+        blocks[j].style.backgroundColor = "#2b6493";
       } else {
-        text += " ";
+        blocks[j].style.backgroundColor = "#FFF";
       }
     }
-    text+="<br/>";
-    game.innerHTML = text;
   }
 }
 
@@ -78,7 +90,6 @@ function iterate() {
     }
   }
   world = buffer;
-  game.innerHTML += "<br/>------<br/>";
   draw(world);
 }
 
